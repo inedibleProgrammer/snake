@@ -1,3 +1,6 @@
 [submodule "vendor/fff"]
 	path = vendor/fff
 	url = git@github.com:meekrosoft/fff.git
+[submodule "vendor/minunit"]
+	path = vendor/minunit
+	url = git@github.com:siu/minunit.git
