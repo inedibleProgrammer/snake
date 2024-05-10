@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "Snake.h"
+#include "snake.h"
 
 int main(int argc, char** argv)
 {

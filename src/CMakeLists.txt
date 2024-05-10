@@ -1,1 +1,5 @@
-add_executable(snake main.c snake.c)
+add_executable(snake
+    main.c
+    snake.h
+    snake.c
+)
