@@ -4,3 +4,6 @@
 [submodule "vendor/minunit"]
 	path = vendor/minunit
 	url = git@github.com:siu/minunit.git
+[submodule "vendor/c-logger"]
+	path = vendor/c-logger
+	url = git@github.com:yksz/c-logger.git
