@@ -86,11 +86,13 @@ static void render(void)
 {
     // system("clear");
     // printf("\033[H\033[J");
-    // write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J")); // Move cursor and clear screen
-    write(STDOUT_FILENO, "\033[H", sizeof("\033[H")); // Move cursor only
+    write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J")); // Move cursor and clear screen
+    // write(STDOUT_FILENO, "\033[H", sizeof("\033[H")); // Move cursor only
     for(int i = 0; i < GRID_HEIGHT; i++)
     {
-        puts(m_grid[i]);
+        printf("%s\n", m_grid[i]);
+        printf("\033[G");
+        // puts("\033[G");
     }
 }
 
@@ -117,7 +119,7 @@ int Game_Run(void)
             break;
         }
         // update();
-        // render();
+        render();
         // sleep(start + MS_PER_FRAME - getCurrentTime());
         sleep60fps();
     }
