@@ -4,11 +4,13 @@
 #include <time.h>
 #include <pthread.h>
 #include <termios.h>
+#include <stdbool.h>
 
 #include "snake.h"
 #include "game.h"
 #include "logger.h"
 
+static bool m_quit = false;
 
 static void* getUserInputThread(void* arg)
 {
@@ -22,7 +24,8 @@ static void* getUserInputThread(void* arg)
         c = getchar();
         if(c == 'q')
         {
-            printf("q pressed");
+            m_quit = true;
+            // printf("q pressed");
         }
         // printf("Test");
         // printf("%s", buffer);
@@ -31,6 +34,7 @@ static void* getUserInputThread(void* arg)
 
 static void processInput()
 {
+    
 }
 
 static double getCurrentTime()
@@ -107,9 +111,16 @@ int Game_Run(void)
     {
         // double start = getCurrentTime();
         processInput();
+
+        if(m_quit == true)
+        {
+            break;
+        }
         // update();
         // render();
         // sleep(start + MS_PER_FRAME - getCurrentTime());
         sleep60fps();
     }
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldTermios);
 }
