@@ -9,4 +9,4 @@ add_library(clogger_lib STATIC
 
 target_include_directories(ctest_lib PUBLIC ctest)
 target_include_directories(fff_lib INTERFACE fff)
-# target_include_directories(clogger_lib PUBLIC c-logger/src)
+target_include_directories(clogger_lib PUBLIC c-logger/src)

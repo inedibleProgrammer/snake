@@ -1,6 +1,9 @@
 file(GLOB snake_src
-    *.c
-    *.h
+    main.c
+    game.h
+    game.c
+    snake.h
+    snake.c
 )
 
 add_executable(snake_bin
