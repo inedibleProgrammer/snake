@@ -56,7 +56,8 @@ static void render(void)
 {
     // system("clear");
     // printf("\033[H\033[J");
-    write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J"));
+    // write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J"));
+    write(STDOUT_FILENO, "\033[H", sizeof("\033[H"));
     for(int i = 0; i < GRID_HEIGHT; i++)
     {
         puts(m_grid[i]);
