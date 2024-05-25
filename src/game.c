@@ -2,10 +2,36 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
+#include <pthread.h>
+#include <termios.h>
+
 #include "snake.h"
 #include "game.h"
 #include "logger.h"
 
+
+static void* getUserInputThread(void* arg)
+{
+    char buffer[128];
+    int num = 0;
+    char c;
+    // printf("thread running");
+    while(1)
+    {
+        // num = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
+        c = getchar();
+        if(c == 'q')
+        {
+            printf("q pressed");
+        }
+        // printf("Test");
+        // printf("%s", buffer);
+    }
+}
+
+static void processInput()
+{
+}
 
 static double getCurrentTime()
 {
@@ -56,8 +82,8 @@ static void render(void)
 {
     // system("clear");
     // printf("\033[H\033[J");
-    // write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J"));
-    write(STDOUT_FILENO, "\033[H", sizeof("\033[H"));
+    // write(STDOUT_FILENO, "\033[H\033[J", sizeof("\033[H\033[J")); // Move cursor and clear screen
+    write(STDOUT_FILENO, "\033[H", sizeof("\033[H")); // Move cursor only
     for(int i = 0; i < GRID_HEIGHT; i++)
     {
         puts(m_grid[i]);
@@ -68,12 +94,21 @@ static void render(void)
 
 int Game_Run(void)
 {
+    struct termios oldTermios;
+    struct termios newTermios;
+    tcgetattr(STDIN_FILENO, &oldTermios);
+    newTermios = oldTermios;
+    cfmakeraw(&newTermios);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newTermios);
+    
+    pthread_t userInputThreadID;
+    pthread_create(&userInputThreadID, NULL, &getUserInputThread, NULL);
     while(1)
     {
         // double start = getCurrentTime();
-        // processInput();
+        processInput();
         // update();
-        render();
+        // render();
         // sleep(start + MS_PER_FRAME - getCurrentTime());
         sleep60fps();
     }
