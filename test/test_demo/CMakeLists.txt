@@ -3,9 +3,10 @@ add_executable(test_demo_bin
 )
 
 target_include_directories(test_demo_bin PUBLIC src)
+# target_include_directories(test_demo_bin PUBLIC ctest)
 
 target_link_libraries(test_demo_bin
-    minunit_lib
+    ctest_lib
     fff_lib
 )
 
