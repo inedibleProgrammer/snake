@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <termios.h>
 #include <stdbool.h>
+#include <sys/ioctl.h>
 
 #include "snake.h"
 #include "game.h"
@@ -97,9 +98,32 @@ static void render(void)
 }
 
 
+void demoTerm(void)
+{
+    // 100, 40 seems to be the max on my laptop
+    struct winsize w;
+    w.ws_col = 100;
+    w.ws_row = 40;
+
+    // Read window size
+    // ioctl(0, TIOCGWINSZ, &w);
+    // printf("col: %d\n", w.ws_col);
+    // printf("row: %d\n", w.ws_row);
+    
+    // Set window size
+    // ioctl(STDOUT_FILENO, TIOCSWINSZ, &w);
+    printf("\033[8;%d;%dt", 40, 40);
+    fflush(stdout);
+    while(1)
+    {
+    }
+}
+
+
 
 int Game_Run(void)
 {
+    // demoTerm();
     struct termios oldTermios;
     struct termios newTermios;
     tcgetattr(STDIN_FILENO, &oldTermios);
